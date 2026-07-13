@@ -2,12 +2,12 @@
   import FigureCard from "./lib/FigureCard.svelte";
   import AsciiBlock from "./lib/AsciiBlock.svelte";
 
-  const loopCode = `result = propose(task)
-feedback = verify(result)
-
-while not feedback.accepted:
-    result = propose(task, result, feedback)
-    feedback = verify(result)`;
+  const loopCode = `while (todos.length) {
+  const task = todos.pop()
+  const result = attempt(task)
+  const feedback = await Promise.all([review(result), review(result)])
+  await apply(feedback, result)
+}`;
 
   const latencyArt = `frontier proposer · 30–60 s per round
 
