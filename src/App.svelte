@@ -22,12 +22,12 @@ fast proposer · ~1 s per round
 <article class="page">
   <header class="head">
     <div class="meta">concept · agent loops · draft</div>
-    <h1 class="title">taste loops</h1>
-    <p class="dek">realtime subagents for taste.</p>
+    <h1 class="title">Taste loops</h1>
+    <p class="dek">Realtime subagents for taste.</p>
   </header>
 
   <section class="section">
-    <h2>verifiability</h2>
+    <h2>Verifiability</h2>
     <p>
       The crux of building software is now
       <a href="https://karpathy.bearblog.dev/verifiability/">verifiability</a>.
@@ -37,7 +37,7 @@ fast proposer · ~1 s per round
   </section>
 
   <section class="section">
-    <h2>loops</h2>
+    <h2>Loops</h2>
     <p>
       Recent discussions around agentic workflows have framed development
       around a simple loop:
@@ -66,7 +66,7 @@ fast proposer · ~1 s per round
   </section>
 
   <section class="section">
-    <h2>taste</h2>
+    <h2>Taste</h2>
     <p>
       Taste is the canonical unverifiable task. It's not an objective metric,
       but an entirely personal point of view. It's not absent, either — in the
@@ -90,7 +90,7 @@ fast proposer · ~1 s per round
   </section>
 
   <section class="section">
-    <h2>taste loops</h2>
+    <h2>Taste loops</h2>
     <p>
       A taste loop is an
       <a href="https://www.inceptionlabs.ai/blog/rise-of-realtime-subagents"
@@ -124,7 +124,7 @@ fast proposer · ~1 s per round
   </section>
 
   <section class="section">
-    <h2>conclusion</h2>
+    <h2>Conclusion</h2>
     <p>
       Iterating on taste is at the frontier of agentic workflows, and is an
       open area of work. Closely related is
@@ -160,33 +160,34 @@ fast proposer · ~1 s per round
   }
 
   .head {
-    margin-bottom: 3.25rem;
+    margin-bottom: 3.5rem;
   }
 
   .meta {
     font-family: var(--mono);
-    font-size: 0.74rem;
+    font-size: 0.72rem;
     letter-spacing: var(--step);
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.5rem;
   }
 
   .title {
-    font-family: var(--sans);
-    font-weight: 700;
-    font-size: clamp(2.6rem, 7vw, 4rem);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    color: var(--text);
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(2.35rem, 6vw, 3.25rem);
+    line-height: 1.1;
+    color: var(--ink);
   }
 
   .dek {
-    margin-top: 1.4rem;
+    font-family: var(--display);
+    font-weight: 300;
+    margin-top: 1rem;
     max-width: 34rem;
-    font-size: 1.18rem;
-    line-height: 1.55;
-    color: var(--text-dim);
+    font-size: 1.4rem;
+    line-height: 1.35;
+    color: var(--text-muted);
   }
 
   .code {
@@ -247,17 +248,16 @@ fast proposer · ~1 s per round
   }
 
   .section {
-    margin-bottom: 3.25rem;
+    margin-bottom: 3.5rem;
   }
 
   .section h2 {
-    font-family: var(--sans);
-    font-weight: 600;
-    font-size: clamp(1.5rem, 3.4vw, 1.95rem);
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(1.6rem, 3.4vw, 2rem);
     line-height: 1.15;
-    letter-spacing: -0.02em;
-    color: var(--text);
-    margin-bottom: 1.1rem;
+    color: var(--text-mid);
+    margin-bottom: 1.15rem;
   }
 
   .section p {

@@ -1,28 +1,32 @@
 :root {
   color-scheme: light;
 
-  --bg: #f6f3ec;
-  --surface-1: #fbf9f4;
-  --surface-2: #efebe0;
-  --border: #ded7c7;
-  --border-bright: #c3b99f;
+  --bg: #faf8f1;
+  --surface-1: #f4f1e7;
+  --surface-2: #eeeade;
+  --border: #e0dccd;
+  --border-bright: #c6bfa9;
 
-  --text: #211d15;
-  --text-dim: #4c463a;
-  --text-muted: #857c68;
+  --ink: #14110b;
+  --text: var(--ink);
+  --text-dim: color-mix(in srgb, var(--ink) 72%, var(--bg));
+  --text-mid: color-mix(in srgb, var(--ink) 80%, var(--bg));
+  --text-muted: color-mix(in srgb, var(--ink) 50%, var(--bg));
 
   --accent: #8f6214;
   --accent-hi: #6e4a0e;
-  --accent-soft: #f1e2bd;
+  --accent-soft: #f0e3c4;
 
-  --sans: "Outfit", system-ui, sans-serif;
+  --display: "Outfit", system-ui, sans-serif;
+  --sans: "Inter", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 
-  --measure: 44rem;
+  --measure: 40.5rem;
   --pad: clamp(1.25rem, 5vw, 2.5rem);
-  --radius: 10px;
+  --radius: 8px;
 
   --step: 0.055em;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 * {
@@ -37,19 +41,26 @@ html {
 body {
   min-height: 100dvh;
   background: var(--bg);
-  color: var(--text);
+  color: var(--text-dim);
   font-family: var(--sans);
   font-size: 17px;
-  line-height: 1.72;
+  line-height: 1.7;
   font-weight: 400;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+strong,
+b {
+  font-weight: 500;
+  color: var(--text-mid);
 }
 
 a {
   color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: color 0.14s ease, border-color 0.14s ease;
+  transition: color 0.15s var(--ease-out), border-color 0.15s var(--ease-out);
 }
 
 a:hover {
@@ -59,7 +70,7 @@ a:hover {
 
 ::selection {
   background: var(--accent-soft);
-  color: var(--text);
+  color: var(--ink);
 }
 
 ::-webkit-scrollbar {
