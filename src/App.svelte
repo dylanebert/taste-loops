@@ -21,7 +21,7 @@ fast proposer · ~1 s per round
 
 <article class="page">
   <header class="head">
-    <div class="meta">concept · agent loops · draft</div>
+    <div class="meta">dylan ebert · july 2026</div>
     <h1 class="title">Taste loops</h1>
     <p class="dek">Realtime subagents for taste.</p>
   </header>
@@ -174,19 +174,20 @@ fast proposer · ~1 s per round
 
   .title {
     font-family: var(--display);
-    font-weight: 300;
+    font-weight: 500;
     font-size: clamp(2.35rem, 6vw, 3.25rem);
     line-height: 1.1;
+    letter-spacing: -0.015em;
     color: var(--ink);
   }
 
   .dek {
     font-family: var(--display);
-    font-weight: 300;
-    margin-top: 1rem;
+    font-weight: 400;
+    margin-top: 0.9rem;
     max-width: 34rem;
-    font-size: 1.4rem;
-    line-height: 1.35;
+    font-size: 1.3rem;
+    line-height: 1.4;
     color: var(--text-muted);
   }
 
@@ -253,10 +254,11 @@ fast proposer · ~1 s per round
 
   .section h2 {
     font-family: var(--display);
-    font-weight: 300;
-    font-size: clamp(1.6rem, 3.4vw, 2rem);
-    line-height: 1.15;
-    color: var(--text-mid);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3.2vw, 1.8rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
     margin-bottom: 1.15rem;
   }
 
