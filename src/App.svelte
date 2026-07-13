@@ -23,10 +23,7 @@ fast proposer · ~1 s per round
   <header class="head">
     <div class="meta">concept · agent loops · draft</div>
     <h1 class="title">taste loops</h1>
-    <p class="dek">
-      an interactive subagent loop that iterates on human taste at realtime
-      latency.
-    </p>
+    <p class="dek">realtime subagents for taste.</p>
   </header>
 
   <section class="section">
