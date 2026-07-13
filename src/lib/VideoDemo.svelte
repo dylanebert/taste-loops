@@ -6,8 +6,6 @@
 </script>
 
 <figure class="card" id="watch">
-  <div class="label">demo · shader session</div>
-
   <div class="frame">
     {#if playing}
       <!-- svelte-ignore a11y_media_has_caption -->
@@ -37,30 +35,13 @@
 
 <style>
   .card {
-    width: min(55rem, calc(100vw - 2 * var(--pad)));
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 2.75rem 0;
-    background: var(--surface-1);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-
-  .label {
-    padding: 0.7rem 1.1rem;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface-2);
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    letter-spacing: var(--step);
-    text-transform: uppercase;
-    color: var(--text-muted);
+    margin: 2rem 0;
   }
 
   .frame {
     background: var(--surface-2);
+    border-radius: var(--radius);
+    overflow: hidden;
   }
 
   /* height:auto is load-bearing: the width/height attributes map to presentational hints, and a
@@ -90,13 +71,13 @@
     translate: -50% -50%;
     display: grid;
     place-items: center;
-    width: 68px;
-    height: 68px;
-    padding-left: 4px;
+    width: 52px;
+    height: 52px;
+    padding-left: 3px;
     border-radius: 50%;
     background: var(--accent-soft);
     color: var(--accent);
-    font-size: 1.15rem;
+    font-size: 0.9rem;
     transition:
       scale 150ms var(--ease-out),
       background 150ms var(--ease-out);
@@ -112,12 +93,11 @@
   }
 
   .caption {
-    padding: 0.75rem 1.1rem;
-    border-top: 1px solid var(--border);
+    margin-top: 0.7rem;
     font-family: var(--mono);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     line-height: 1.55;
-    color: var(--text-dim);
+    color: var(--text-muted);
   }
 
   .sr {
