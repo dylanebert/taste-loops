@@ -29,7 +29,7 @@
   </div>
 
   <figcaption class="caption">
-    iterating on a wgsl shader by voice, at about a second per round. sound on.
+    iterating on a wgsl shader by voice, at a few seconds per round.
   </figcaption>
 </figure>
 
