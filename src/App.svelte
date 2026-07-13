@@ -35,7 +35,7 @@ fast proposer · ~1 s per round
     <p>
       The crux of building software is now
       <a href="https://karpathy.bearblog.dev/verifiability/">verifiability</a>.
-      It has become easy to generate code. The challenge now is knowing whether
+      It has become easy to generate code. The hard part is knowing whether
       it's the code you want.
     </p>
   </section>
@@ -43,8 +43,7 @@ fast proposer · ~1 s per round
   <section class="section">
     <h2>loops</h2>
     <p>
-      Recent discussions around agentic workflows have framed development
-      around a simple loop:
+      Agentic workflows answer this with a simple loop:
     </p>
 
     <div class="code">
@@ -52,9 +51,9 @@ fast proposer · ~1 s per round
     </div>
 
     <p>
-      A salient example is the recent
+      The clearest recent example is the
       <a href="https://bun.com/blog/bun-in-rust">bun rust rewrite</a>, which
-      relied on several types of automated verification:
+      relied on three kinds of automated verification:
     </p>
     <ol>
       <li>Rust typechecking</li>
@@ -62,27 +61,26 @@ fast proposer · ~1 s per round
       <li>Adversarial review</li>
     </ol>
     <p>
-      Verification is the bottleneck of development speed. This workflow
-      demonstrates that by speeding up and automating verification,
-      development can be sped up drastically.
+      Verification is the bottleneck of development speed. The rewrite shows
+      what happens when it's automated: development speeds up drastically.
     </p>
-    <p>However, not everything can be verifiable.</p>
+    <p>But not everything is verifiable.</p>
   </section>
 
   <section class="section">
     <h2>taste</h2>
     <p>
-      Taste is the canonical unverifiable task. It's not an objective metric,
-      but an entirely personal point of view. It's not absent, either — in the
-      case of the bun rewrite, taste was primarily frontloaded in the way the
-      loop was set up, how it was directed, and what decisions were made.
+      Taste is the canonical unverifiable task. There's no objective metric,
+      only a personal point of view. That doesn't make it absent: in the bun
+      rewrite, taste was frontloaded into how the loop was set up, how it was
+      directed, and what decisions were made.
     </p>
     <p>
-      However, many tasks require rapid iteration on taste. It can't be
-      specified upfront — it needs to be produced, then iterated on, in a tight
-      loop. Examples include UI design, shader programming, and video editing. It's not impossible to iterate on taste in an agentic
-      workflow — it's just very slow. Slow to an extent that sends you back to
-      editing software.
+      Many tasks, though, require rapid iteration on taste. It can't be
+      specified upfront; it has to be produced, then reacted to, in a tight
+      loop. UI design, shader programming, video editing. You can already
+      iterate on taste in an agentic workflow. It's just very slow. Slow
+      enough to send you back to editing software.
     </p>
 
     <FigureCard
@@ -102,14 +100,14 @@ fast proposer · ~1 s per round
       > loop that iterates on human taste at realtime latency.
     </p>
     <p>
-      In modern agentic workflows, a main agent orchestrates subagents to
-      execute tasks and run verifiers, and drives the outer loop. With taste
-      loops, the main agent spawns a live session and hands it off to an
-      ultra-fast subagent, such as
+      In modern agentic workflows, a main agent drives the outer loop,
+      orchestrating subagents to execute tasks and run verifiers. In a taste
+      loop, the main agent spawns a live session and hands it to an ultra-fast
+      subagent, such as
       <a href="https://www.inceptionlabs.ai/blog/introducing-mercury-2"
         >Mercury 2</a
-      >. This may be text or spoken conversation, and can incorporate UI or
-      visualization. Let's look at an example.
+      >. The verifier is you. The session may be text or spoken conversation,
+      and can incorporate UI or visualization. Let's look at an example.
     </p>
 
     <a class="video" id="watch" href="https://youtube.com/shorts/vkAt-KS6I_U">
@@ -122,26 +120,26 @@ fast proposer · ~1 s per round
 
     <p>
       Here, a Claude Fable 5 agent spawns an interactive shader editing
-      session. I then iterate on it quickly with voice speaking to Mercury 2.
-      When finished, it returns the context back to the parent agent.
+      session. I iterate on it quickly by voice, talking to Mercury 2. When
+      I'm done, the session folds back into the parent agent's context.
     </p>
   </section>
 
   <section class="section">
     <h2>conclusion</h2>
     <p>
-      Iterating on taste is at the frontier of agentic workflows, and is an
-      open area of work. Closely related is
+      Iterating on taste is an open problem in agentic workflows. Closely
+      related is
       <a
         href="https://research.google/blog/generative-ui-a-rich-custom-visual-interactive-user-experience-for-any-prompt/"
         >Generative UI</a
-      >, where UI is spun up by an agent to allow human input that suits the
-      task. This complements taste loops, working particularly well in
-      constrained scenarios where the expression space maps neatly to
-      established UI paradigms.
+      >, where an agent spins up UI shaped to the human input a task needs.
+      This complements taste loops, working particularly well in constrained
+      scenarios where the expression space maps neatly to established UI
+      paradigms.
     </p>
     <p>
-      Taste loops, on the other hand, are only constrained by the intelligence
+      Taste loops, on the other hand, are constrained only by the intelligence
       of interaction-speed models, which are a
       <a href="https://www.inceptionlabs.ai/blog/introducing-mercury-edit-2"
         >rapidly moving frontier</a
