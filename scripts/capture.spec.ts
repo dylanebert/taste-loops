@@ -17,6 +17,9 @@ const types: Record<string, string> = {
   ".svg": "image/svg+xml",
   ".woff2": "font/woff2",
   ".png": "image/png",
+  ".webp": "image/webp",
+  ".jpg": "image/jpeg",
+  ".mp4": "video/mp4",
   ".ico": "image/x-icon",
   ".json": "application/json",
   ".map": "application/json",
@@ -67,6 +70,23 @@ for (const view of views) {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(url, { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts.ready);
+
+    // A full-page screenshot captures beyond the viewport without scrolling, so `loading="lazy"`
+    // images below the fold are never requested. Scroll the page to trigger them, then wait for
+    // every image to finish decoding before shooting.
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.body.scrollHeight; y += window.innerHeight) {
+        window.scrollTo(0, y);
+        await new Promise((resolve) => requestAnimationFrame(resolve));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.evaluate(() =>
+      Promise.all(
+        Array.from(document.images).map((img) => img.decode().catch(() => undefined)),
+      ),
+    );
+
     await page.screenshot({ path: join(root, view.name), fullPage: true });
     await page.close();
     console.log(`captured ${view.name}`);

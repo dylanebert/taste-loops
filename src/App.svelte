@@ -1,6 +1,7 @@
 <script lang="ts">
   import FigureCard from "./lib/FigureCard.svelte";
   import AsciiBlock from "./lib/AsciiBlock.svelte";
+  import VideoDemo from "./lib/VideoDemo.svelte";
 
   const loopCode = `while (todos.length) {
   const result = attempt(todos.pop())
@@ -110,18 +111,14 @@ fast proposer · ~1 s per round
       and can incorporate UI or visualization. Let's look at an example.
     </p>
 
-    <a class="video" id="watch" href="https://youtube.com/shorts/vkAt-KS6I_U">
-      <span class="play" aria-hidden="true">▶</span>
-      <span class="video-text">
-        <span class="video-label">watch · the demo</span>
-        <span class="video-sub">youtube · 1 min</span>
-      </span>
-    </a>
+    <VideoDemo />
 
     <p>
       Here, a Claude Fable 5 agent spawns an interactive shader editing
       session. I iterate on it quickly by voice, talking to Mercury 2. When
-      I'm done, the session folds back into the parent agent's context.
+      I'm done, the session folds back into the parent agent's context. I made
+      a <a href="https://youtube.com/shorts/vkAt-KS6I_U">one-minute explainer</a
+      >, if you'd rather watch me talk through it.
     </p>
   </section>
 
@@ -202,55 +199,6 @@ fast proposer · ~1 s per round
     background: var(--surface-1);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-  }
-
-  .video {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 0 0 1.1rem;
-    padding: 1.1rem 1.25rem;
-    background: var(--surface-1);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text);
-  }
-
-  .video:hover {
-    border-color: var(--border-bright);
-  }
-
-  .play {
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--accent-soft);
-    color: var(--accent);
-    font-size: 0.85rem;
-    padding-left: 3px;
-  }
-
-  .video-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.35;
-  }
-
-  .video-label {
-    font-family: var(--mono);
-    font-size: 0.76rem;
-    letter-spacing: var(--step);
-    text-transform: uppercase;
-    color: var(--text);
-  }
-
-  .video-sub {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--text-muted);
   }
 
   .section {
