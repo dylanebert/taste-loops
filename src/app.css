@@ -13,9 +13,9 @@
   --text-mid: color-mix(in srgb, var(--ink) 80%, var(--bg));
   --text-muted: color-mix(in srgb, var(--ink) 50%, var(--bg));
 
-  --accent: #8f6214;
-  --accent-hi: #6e4a0e;
-  --accent-soft: #f0e3c4;
+  --accent: #0e7490;
+  --accent-hi: #0a5568;
+  --accent-soft: #dbeaee;
 
   --display: "Outfit", system-ui, sans-serif;
   --sans: "Inter", system-ui, sans-serif;
