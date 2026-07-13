@@ -2,13 +2,10 @@
   import FigureCard from "./lib/FigureCard.svelte";
   import AsciiBlock from "./lib/AsciiBlock.svelte";
 
-  const verifierArt = `┌─────────────┬──────────────────────┐
-│ benchmarks  │  did it get slower?  │
-│ tests       │  does it behave?     │
-│ types       │  does it fit?        │
-│ compilers   │  does it build?      │
-└─────────────┴──────────────────────┘
-        cheap · fast · automatic`;
+  const loopCode = `while task:
+    result = task
+    feedback = verify(result)
+    apply(feedback, result)`;
 
   const latencyArt = `frontier proposer · 30–60 s per round
 
@@ -20,18 +17,6 @@ fast proposer · ~1 s per round
 
   propose █ judge ▏ propose █ judge ▏ propose █ judge ▏
                                 you, the bottleneck`;
-
-  const loopArt = `parent agent
-   │ spawn · annotated starter + brief
-   ▼
-fast model ─── propose · ~1 s ──▶ compile gate
-    ▲                                  │ ok
-    │  accept / reject                 ▼
-    └───────────────────────────── human eye
-                                    ~200 ms
-                                       │ close
-                                       ▼
-                          folds back to the parent`;
 </script>
 
 <article class="page">
@@ -39,78 +24,71 @@ fast model ─── propose · ~1 s ──▶ compile gate
     <div class="meta">concept · agent loops · draft</div>
     <h1 class="title">taste loops</h1>
     <p class="dek">
-      an agent loop whose terminal verifier is a human, at interactive latency.
+      an interactive subagent loop that iterates on human taste at realtime
+      latency.
     </p>
   </header>
 
   <section class="section">
     <h2>verifiability</h2>
     <p>
-      Karpathy has a rule for predicting AI progress: the more
-      <a href="https://karpathy.bearblog.dev/verifiability/">verifiable</a> a
-      task, the more automatable it is. Verifiable means the task resets
-      cleanly, retries cheaply, and scores unambiguously. A proof checks. A
-      test suite runs. That one property explains the jagged frontier better
-      than difficulty does: agents race ahead at math and code while
-      easier-looking work lags, because nothing can score it.
+      The crux of building software is now
+      <a href="https://karpathy.bearblog.dev/verifiability/">verifiability</a>.
+      It has become easy to generate code. The challenge now is knowing whether
+      it's the code you want.
     </p>
   </section>
 
   <section class="section">
     <h2>loops</h2>
     <p>
-      The frontier of agentic coding runs on one shape: generate, then verify.
-      A model proposes a change, a verifier judges it, accepted work compounds,
-      and the loop repeats without you. What sits in the verifier slot is the
-      whole design question. Compilers catch what won't build. Types catch what
-      won't fit. Tests catch what won't behave. Benchmarks catch what got
-      slower.
+      Recent discussions around agentic workflows have framed development
+      around a simple loop:
     </p>
 
-    <FigureCard
-      label="fig 01 · verifiers"
-      caption="the machine verifier stack: each rung scores automatically, so the loop runs without you."
-    >
-      <AsciiBlock art={verifierArt} />
-    </FigureCard>
+    <div class="code">
+      <AsciiBlock art={loopCode} />
+    </div>
 
     <p>
-      The sharpest demonstration is the
-      <a href="https://bun.com/blog/bun-in-rust">Bun rewrite</a>: about a
-      million lines of Zig ported to Rust in eleven days, one engineer,
-      parallel agent loops closing on a conformance suite. Everything in that
-      system is arranged to make the work verifiable, because verifiable work
-      is what loops can be trusted with.
+      A salient example of this is the recent
+      <a href="https://bun.com/blog/bun-in-rust">bun rust rewrite</a>. This is
+      a strong positive example of verifiability. This rewrite relied on
+      several types of automated verification, including:
     </p>
+    <ol>
+      <li>Rust typechecking</li>
+      <li>The bun test suite</li>
+      <li>Adversarial review</li>
+    </ol>
+    <p>
+      Verification is the bottleneck of development speed. This workflow
+      demonstrates that by speeding up and automating verification,
+      development can be sped up drastically.
+    </p>
+    <p>However, not everything can be verifiable.</p>
   </section>
 
   <section class="section">
     <h2>taste</h2>
     <p>
-      Taste is the canonical unverifiable task. Does this look right, does it
-      feel good: no machine scores that, because the objective can't be written
-      down. Taste stays human.
+      Taste is the canonical unverifiable task. It's not an objective metric,
+      but an entirely personal point of view. It's not absent, either — in the
+      case of the bun rewrite, taste was primarily frontloaded in the way the
+      loop was set up, how it was directed, and what decisions were made.
     </p>
     <p>
-      In work like the Bun rewrite, the taste lives mostly in the preparation:
-      the porting rules, the reviewer design, the choice of which failures to
-      tolerate. Judgment applied up front, so the loops could run for days
-      without asking. At the far end there's Rick Rubin, whose entire
-      contribution is taste.
-    </p>
-    <p>
-      But some domains can't take their taste up front. Video editing, shader
-      work, game feel: you don't know what right is until a candidate is in
-      front of you, and then you know in a glance, and that glance fires
-      hundreds of times in a working session. You can iterate on this with an
-      agent today, by discussing it. Describe, wait half a minute, look,
-      redirect. It works. It's also far too slow, and convergence dies of
-      impatience.
+      However, many tasks require rapid iteration on taste. It can't be
+      specified upfront — it needs to be produced, then iterated on, in a tight
+      loop. Some examples of this include UI design, shader programming, and
+      video editing. It's not impossible to iterate on taste in an agentic
+      workflow — it's just very slow. Slow to an extent that sends you back to
+      editing software.
     </p>
 
     <FigureCard
-      label="fig 02 · latency"
-      caption="a human verifier judges in ~200 ms and proposes nothing; cycle time belongs to the proposer."
+      label="fig 01 · latency"
+      caption="a human judges in ~200 ms and proposes nothing; cycle time belongs to the proposer."
     >
       <AsciiBlock art={latencyArt} />
     </FigureCard>
@@ -119,52 +97,20 @@ fast model ─── propose · ~1 s ──▶ compile gate
   <section class="section">
     <h2>taste loops</h2>
     <p>
-      A taste loop is an agent loop whose terminal verifier is a human, at
-      interactive latency.
-    </p>
-    <p>
-      The machinery is an interaction-speed subagent. Inception describes the
-      machine-facing version in
+      A taste loop is an
       <a href="https://www.inceptionlabs.ai/blog/rise-of-realtime-subagents"
-        >the rise of real-time subagents</a
-      >: fast diffusion models taking the high-frequency substages inside a
-      frontier agent's workflow. A taste loop is the same architecture with a
-      person in the substage.
+        >interactive subagent</a
+      > loop that iterates on human taste at realtime latency.
     </p>
     <p>
-      It runs like this. The parent agent authors the premise, an annotated
-      starter and a brief (the same move as Bun's porting rules), spawns a live
-      session, and hands off to a fast model. You direct in plain language and
-      judge each proposal on sight; a compile gate filters broken candidates
-      before they ever reach you. When you close the session, the result folds
-      back into the parent's context and the outer work continues.
-    </p>
-
-    <FigureCard
-      label="fig 03 · the loop"
-      caption="the parent authors the premise, a fast model proposes, you verify at the terminal rung."
-    >
-      <AsciiBlock art={loopArt} />
-    </FigureCard>
-
-    <p>
-      The latency is derived, not chosen. You judge in about 200 ms and propose
-      nothing, so the cycle belongs entirely to the proposer. At 30–60 s per
-      proposal you're waiting, not working. At ~1 s the bottleneck is you
-      again. And since the session runs at conversation speed, voice fits
-      naturally: say the nudge instead of typing it.
-    </p>
-  </section>
-
-  <section class="section">
-    <h2>in practice</h2>
-    <p>
-      I run this today for shader work. Mid-task, I ask Claude for a scene; it
-      writes an annotated WGSL starter and a brief, spawns a live canvas, and
-      Mercury applies my edits at about a second each. "more molten." "slower."
-      "less orange." Ten rounds inside a minute, spoken aloud, watching the
-      real thing change. Close the tab and Claude carries on with what I
-      converged to.
+      In modern agentic workflows, a main agent often orchestrates subagents
+      to execute tasks, run verifiers, and orchestrate the outer loop. With
+      taste loops, the main agent spawns a live session and hands it off to an
+      ultra-fast subagent, such as
+      <a href="https://www.inceptionlabs.ai/blog/introducing-mercury-2"
+        >Mercury 2</a
+      >. This may be text or spoken conversation, and can incorporate UI or
+      visualization (more on that later). Let's look at an example.
     </p>
 
     <div class="video" id="watch">
@@ -176,40 +122,31 @@ fast model ─── propose · ~1 s ──▶ compile gate
     </div>
 
     <p>
-      The setup was two sentences: I told Claude to build the integration, and
-      hooked up the Mercury API key. The rest is pattern, and any fast model
-      with any judged-by-eye surface fits it.
+      Here, a Claude Fable 5 agent spawns an interactive shader editing
+      session. I then iterate on it quickly with voice speaking to Mercury 2.
+      When finished, it returns the context back to the parent agent.
     </p>
   </section>
 
   <section class="section">
-    <h2>related work</h2>
+    <h2>conclusion</h2>
     <p>
-      Generative UI comes at the same problem from the other side.
+      Iterating on taste is at the frontier of agentic workflows, and is an
+      open area of work. Closely related is
       <a
         href="https://research.google/blog/generative-ui-a-rich-custom-visual-interactive-user-experience-for-any-prompt/"
-        >Google's version</a
-      > designs a custom interface for every prompt: instead of proposing candidates
-      for your eye, the agent grows the controls themselves, sliders and toggles
-      and views purpose-built for the decision in front of you. A narrower expression
-      space, instant once rendered. A taste loop hands you a proposer; generative
-      UI hands you knobs. Both sit at the frontier of iterating on taste inside
-      agentic workflows.
-    </p>
-  </section>
-
-  <section class="section">
-    <h2>the frontier of taste</h2>
-    <p>
-      Verifiable work automates first. That frontier has been moving for years,
-      and everything behind it compounds without us. What's ahead of it was
-      never untouchable; it just couldn't be iterated at the speed taste
-      demands.
+        >Generative UI</a
+      >, where UI is spun up by an agent to allow human input that suits the
+      task. This complements taste loops, working particularly well in
+      constrained scenarios where the expression space maps neatly to
+      established UI paradigms.
     </p>
     <p>
-      Human-in-the-loop made you a checkpoint inside the machine's loop. A
-      taste loop turns it inside out: the machine proposes inside yours, at the
-      speed you can look.
+      Taste loops, on the other hand, are only constrained by the intelligence
+      of interaction-speed models, which are a
+      <a href="https://www.inceptionlabs.ai/blog/introducing-mercury-edit-2"
+        >rapidly moving frontier</a
+      >. I'm excited to see where this leads.
     </p>
   </section>
 
@@ -255,6 +192,14 @@ fast model ─── propose · ~1 s ──▶ compile gate
     font-size: 1.18rem;
     line-height: 1.55;
     color: var(--text-dim);
+  }
+
+  .code {
+    margin: 0 0 1.1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
   }
 
   .video {
@@ -327,6 +272,16 @@ fast model ─── propose · ~1 s ──▶ compile gate
 
   .section p:last-child {
     margin-bottom: 0;
+  }
+
+  .section ol {
+    color: var(--text-dim);
+    margin: 0 0 1.1rem;
+    padding-left: 1.5rem;
+  }
+
+  .section ol li {
+    margin-bottom: 0.35rem;
   }
 
   .foot {
