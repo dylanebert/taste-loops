@@ -1,7 +1,88 @@
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
+
+  --bg: #1a1613;
+  --surface-1: #221d18;
+  --surface-2: #2a241d;
+  --border: rgba(235, 219, 178, 0.11);
+  --border-bright: rgba(235, 219, 178, 0.2);
+
+  --text: #ece2cd;
+  --text-dim: #c4b79c;
+  --text-muted: #948972;
+
+  --accent: #e2a24e;
+  --accent-hi: #f0b968;
+  --accent-soft: rgba(226, 162, 78, 0.14);
+
+  --sans: "Outfit", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --measure: 44rem;
+  --pad: clamp(1.25rem, 5vw, 2.5rem);
+  --radius: 10px;
+
+  --step: 0.055em;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.72;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* warm atmosphere: a single restrained glow above the fold, plus a faint dot grid */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 60% at 50% -10%, var(--accent-soft), transparent 55%),
+    radial-gradient(rgba(235, 219, 178, 0.03) 1px, transparent 1px);
+  background-size: auto, 22px 22px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.14s ease, border-color 0.14s ease;
+}
+
+a:hover {
+  color: var(--accent-hi);
+  border-color: var(--accent-hi);
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-2);
+  border-radius: 6px;
+  border: 2px solid var(--bg);
 }
