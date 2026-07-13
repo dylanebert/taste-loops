@@ -3,9 +3,8 @@
   import AsciiBlock from "./lib/AsciiBlock.svelte";
 
   const loopCode = `while (todos.length) {
-  const task = todos.pop()
-  const result = attempt(task)
-  const feedback = await Promise.all([review(result), review(result)])
+  const result = attempt(todos.pop())
+  const feedback = await Promise.all(reviews(result))
   await apply(feedback, result)
 }`;
 
