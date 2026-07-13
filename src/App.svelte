@@ -22,7 +22,10 @@ fast proposer · ~1 s per round
 
 <article class="page">
   <header class="head">
-    <div class="meta">dylan ebert · july 2026</div>
+    <div class="meta">
+      <a class="byline" href="https://dylanebert.com">dylan ebert</a>
+      <span class="sep">·</span> july 2026
+    </div>
     <h1 class="title">taste loops</h1>
     <p class="dek">realtime subagents for taste.</p>
   </header>
@@ -164,8 +167,16 @@ fast proposer · ~1 s per round
     font-size: 0.72rem;
     letter-spacing: var(--step);
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--text-muted);
     margin-bottom: 1.5rem;
+  }
+
+  .byline {
+    color: var(--accent);
+  }
+
+  .sep {
+    color: var(--border-bright);
   }
 
   .title {
