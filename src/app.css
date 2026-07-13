@@ -1,19 +1,19 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  --bg: #1a1613;
-  --surface-1: #221d18;
-  --surface-2: #2a241d;
-  --border: rgba(235, 219, 178, 0.11);
-  --border-bright: rgba(235, 219, 178, 0.2);
+  --bg: #f6f3ec;
+  --surface-1: #fbf9f4;
+  --surface-2: #efebe0;
+  --border: #ded7c7;
+  --border-bright: #c3b99f;
 
-  --text: #ece2cd;
-  --text-dim: #c4b79c;
-  --text-muted: #948972;
+  --text: #211d15;
+  --text-dim: #4c463a;
+  --text-muted: #857c68;
 
-  --accent: #e2a24e;
-  --accent-hi: #f0b968;
-  --accent-soft: rgba(226, 162, 78, 0.14);
+  --accent: #8f6214;
+  --accent-hi: #6e4a0e;
+  --accent-soft: #f1e2bd;
 
   --sans: "Outfit", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
@@ -42,21 +42,7 @@ body {
   font-size: 17px;
   line-height: 1.72;
   font-weight: 400;
-  -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-}
-
-/* warm atmosphere: a single restrained glow above the fold, plus a faint dot grid */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(120% 60% at 50% -10%, var(--accent-soft), transparent 55%),
-    radial-gradient(rgba(235, 219, 178, 0.03) 1px, transparent 1px);
-  background-size: auto, 22px 22px;
 }
 
 a {
@@ -82,7 +68,7 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-2);
+  background: var(--border);
   border-radius: 6px;
   border: 2px solid var(--bg);
 }

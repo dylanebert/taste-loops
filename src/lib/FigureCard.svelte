@@ -32,7 +32,7 @@
   .label {
     padding: 0.7rem 1.1rem;
     border-bottom: 1px solid var(--border);
-    background: rgba(235, 219, 178, 0.015);
+    background: var(--surface-2);
     font-family: var(--mono);
     font-size: 0.7rem;
     letter-spacing: var(--step);
