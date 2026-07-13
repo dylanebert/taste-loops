@@ -144,11 +144,6 @@ fast proposer · ~1 s per round
       >. I'm excited to see where this leads.
     </p>
   </section>
-
-  <footer class="foot">
-    <span class="foot-mark">taste loops</span>
-    <span class="foot-meta">dylan ebert · 2026</span>
-  </footer>
 </article>
 
 <style>
@@ -279,28 +274,5 @@ fast proposer · ~1 s per round
 
   .section ol li {
     margin-bottom: 0.35rem;
-  }
-
-  .foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 4.5rem;
-    padding-top: 1.6rem;
-    border-top: 1px solid var(--border);
-    font-family: var(--mono);
-    font-size: 0.74rem;
-    letter-spacing: var(--step);
-    text-transform: uppercase;
-  }
-
-  .foot-mark {
-    color: var(--accent);
-  }
-
-  .foot-meta {
-    color: var(--text-muted);
   }
 </style>
