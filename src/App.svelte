@@ -48,10 +48,9 @@ fast proposer · ~1 s per round
     </div>
 
     <p>
-      A salient example of this is the recent
-      <a href="https://bun.com/blog/bun-in-rust">bun rust rewrite</a>. This is
-      a strong positive example of verifiability. This rewrite relied on
-      several types of automated verification, including:
+      A salient example is the recent
+      <a href="https://bun.com/blog/bun-in-rust">bun rust rewrite</a>, which
+      relied on several types of automated verification:
     </p>
     <ol>
       <li>Rust typechecking</li>
@@ -77,8 +76,7 @@ fast proposer · ~1 s per round
     <p>
       However, many tasks require rapid iteration on taste. It can't be
       specified upfront — it needs to be produced, then iterated on, in a tight
-      loop. Some examples of this include UI design, shader programming, and
-      video editing. It's not impossible to iterate on taste in an agentic
+      loop. Examples include UI design, shader programming, and video editing. It's not impossible to iterate on taste in an agentic
       workflow — it's just very slow. Slow to an extent that sends you back to
       editing software.
     </p>
@@ -100,23 +98,23 @@ fast proposer · ~1 s per round
       > loop that iterates on human taste at realtime latency.
     </p>
     <p>
-      In modern agentic workflows, a main agent often orchestrates subagents
-      to execute tasks, run verifiers, and orchestrate the outer loop. With
-      taste loops, the main agent spawns a live session and hands it off to an
+      In modern agentic workflows, a main agent orchestrates subagents to
+      execute tasks and run verifiers, and drives the outer loop. With taste
+      loops, the main agent spawns a live session and hands it off to an
       ultra-fast subagent, such as
       <a href="https://www.inceptionlabs.ai/blog/introducing-mercury-2"
         >Mercury 2</a
       >. This may be text or spoken conversation, and can incorporate UI or
-      visualization (more on that later). Let's look at an example.
+      visualization. Let's look at an example.
     </p>
 
-    <div class="video" id="watch">
+    <a class="video" id="watch" href="https://youtube.com/shorts/vkAt-KS6I_U">
       <span class="play" aria-hidden="true">▶</span>
       <span class="video-text">
         <span class="video-label">watch · the demo</span>
-        <span class="video-sub">video link lands here</span>
+        <span class="video-sub">youtube · 1 min</span>
       </span>
-    </div>
+    </a>
 
     <p>
       Here, a Claude Fable 5 agent spawns an interactive shader editing
