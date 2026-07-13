@@ -24,12 +24,12 @@ fast proposer · ~1 s per round
 <article class="page">
   <header class="head">
     <div class="meta">dylan ebert · july 2026</div>
-    <h1 class="title">Taste loops</h1>
-    <p class="dek">Realtime subagents for taste.</p>
+    <h1 class="title">taste loops</h1>
+    <p class="dek">realtime subagents for taste.</p>
   </header>
 
   <section class="section">
-    <h2>Verifiability</h2>
+    <h2>verifiability</h2>
     <p>
       The crux of building software is now
       <a href="https://karpathy.bearblog.dev/verifiability/">verifiability</a>.
@@ -39,7 +39,7 @@ fast proposer · ~1 s per round
   </section>
 
   <section class="section">
-    <h2>Loops</h2>
+    <h2>loops</h2>
     <p>
       Recent discussions around agentic workflows have framed development
       around a simple loop:
@@ -68,7 +68,7 @@ fast proposer · ~1 s per round
   </section>
 
   <section class="section">
-    <h2>Taste</h2>
+    <h2>taste</h2>
     <p>
       Taste is the canonical unverifiable task. It's not an objective metric,
       but an entirely personal point of view. It's not absent, either — in the
@@ -92,7 +92,7 @@ fast proposer · ~1 s per round
   </section>
 
   <section class="section">
-    <h2>Taste loops</h2>
+    <h2>taste loops</h2>
     <p>
       A taste loop is an
       <a href="https://www.inceptionlabs.ai/blog/rise-of-realtime-subagents"
@@ -126,7 +126,7 @@ fast proposer · ~1 s per round
   </section>
 
   <section class="section">
-    <h2>Conclusion</h2>
+    <h2>conclusion</h2>
     <p>
       Iterating on taste is at the frontier of agentic workflows, and is an
       open area of work. Closely related is
