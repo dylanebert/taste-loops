@@ -114,6 +114,10 @@
       session. I iterate on it quickly by voice, talking to Mercury 2. When
       I'm done, the session folds back into the parent agent's context.
     </p>
+    <p class="aside">
+      try it yourself in the <a href="/taste-loops/demo/">live demo</a>. bring
+      your own Inception key, runs in your browser, needs Chrome with WebGPU.
+    </p>
   </section>
 
   <section class="section">
