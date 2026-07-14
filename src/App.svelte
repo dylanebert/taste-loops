@@ -91,10 +91,10 @@
   <section class="section">
     <h2>taste loops</h2>
     <p>
-      A taste loop is an
+      A taste loop is a
       <a href="https://www.inceptionlabs.ai/blog/rise-of-realtime-subagents"
-        >interactive subagent</a
-      > loop that iterates on human taste at realtime latency.
+        >realtime subagent</a
+      > loop that iterates on human taste.
     </p>
     <p>
       In modern agentic workflows, a main agent drives the outer loop,
