@@ -8,7 +8,6 @@
   --border-bright: #c6bfa9;
 
   --ink: #14110b;
-  --text: var(--ink);
   --text-dim: color-mix(in srgb, var(--ink) 72%, var(--bg));
   --text-mid: color-mix(in srgb, var(--ink) 80%, var(--bg));
   --text-muted: color-mix(in srgb, var(--ink) 50%, var(--bg));
