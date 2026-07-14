@@ -1,69 +1,82 @@
 <script lang="ts">
-  // Two schematic lanes contrast where a taste loop spends its time. A lane's grey bands are the
-  // proposer; the accent ticks are the human judging (~200 ms, flat in both regimes). Slow
-  // proposer: one long band, one lonely tick, the human idle. Fast proposer: many short bands, the
-  // human tick now the recurring beat. Motion reveals each lane on scroll, then stills; the
-  // resting state is fully drawn, so reduced-motion and screenshots carry the whole claim.
+  // Adapted from Inception's Mercury parallel-vs-sequential viz, restated for round count: in one
+  // ~9 s loop the fast lane completes a judged proposal every real second (chip appears, the
+  // accent pop is the verdict) while the frontier lane's single proposal is still filling when the
+  // loop restarts. The motion carries the claim; the caption is the only explanation. Loops while
+  // on-screen (operator direction supersedes play-once-then-still for this figure); reduced motion
+  // gets the fully-drawn resting state: fast lane judged, frontier lane partial.
 
-  const cycles = [0, 1, 2, 3, 4, 5];
-  const step = 140; // ms between fast cycles
-  const seg = 90; // ms band grow before its tick pops
+  const chips = [1, 2, 3, 4, 5, 6, 7, 8];
+  const beat = 1000; // ms per fast proposal, the literal claim
+  const judgeAt = 0.68; // fraction of the beat when the verdict lands
+  const loop = 9000;
+  const frontierSpan = 45000; // mid 30–60 s
 
-  let armed = $state(false);
-  let play = $state(false);
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let elapsed = $state(0);
   let root: HTMLElement;
 
   $effect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    armed = true;
+    if (reduced) return;
+    let raf = 0;
+    let last = 0;
+    const tick = (t: number) => {
+      if (last) elapsed = (elapsed + t - last) % loop;
+      last = t;
+      raf = requestAnimationFrame(tick);
+    };
     const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            play = true;
-            io.disconnect();
-          }
+      ([e]) => {
+        cancelAnimationFrame(raf);
+        if (e.isIntersecting) {
+          last = 0;
+          raf = requestAnimationFrame(tick);
         }
       },
-      { threshold: 0.4 },
+      { threshold: 0.2 },
     );
     io.observe(root);
-    return () => io.disconnect();
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+    };
   });
+
+  function chip(i: number): "pending" | "proposing" | "judged" {
+    if (reduced) return "judged";
+    const t = elapsed - i * beat;
+    if (t < 0) return "pending";
+    return t < beat * judgeAt ? "proposing" : "judged";
+  }
+
+  const fill = $derived(
+    reduced ? (chips.length * beat) / frontierSpan : elapsed / frontierSpan,
+  );
 </script>
 
-<div class="fig" class:armed class:play bind:this={root}>
-  <div class="lane">
-    <div class="head">
-      <span class="name">frontier proposer</span>
-      <span class="time">30–60 s / proposal</span>
-    </div>
-    <div class="track solo">
-      <div class="band" style="transition-duration:1.4s"></div>
-      <div class="tick" style="transition-delay:1.4s"></div>
-    </div>
-    <div class="foot">you wait ~99% of the cycle</div>
-  </div>
-
+<div class="fig" bind:this={root}>
   <div class="lane">
     <div class="head">
       <span class="name">fast proposer</span>
       <span class="time">~1 s / proposal</span>
     </div>
-    <div class="track">
-      {#each cycles as c (c)}
-        <div class="cycle">
-          <div class="band" style="transition-delay:{c * step}ms"></div>
-          <div class="tick" style="transition-delay:{c * step + seg}ms"></div>
-        </div>
+    <div class="row">
+      {#each chips as v, i (v)}
+        <span class="chip {chip(i)}">v{v}</span>
       {/each}
     </div>
-    <div class="foot">you set the pace</div>
   </div>
 
-  <div class="legend">
-    <span class="key"><i class="sw band-sw"></i>proposer</span>
-    <span class="key"><i class="sw tick-sw"></i>you · judge ~200 ms</span>
+  <div class="lane">
+    <div class="head">
+      <span class="name">frontier proposer</span>
+      <span class="time">30–60 s / proposal</span>
+    </div>
+    <div class="long">
+      <span class="fill" style="width:{(fill * 100).toFixed(2)}%"></span>
+      <span class="mark">v1</span>
+    </div>
   </div>
 </div>
 
@@ -71,13 +84,13 @@
   .fig {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.6rem;
   }
 
   .lane {
     display: flex;
     flex-direction: column;
-    gap: 0.55rem;
+    gap: 0.6rem;
   }
 
   .head {
@@ -85,9 +98,8 @@
     justify-content: space-between;
     gap: 1rem;
     font-family: var(--mono);
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     letter-spacing: var(--step);
-    text-transform: uppercase;
   }
 
   .name {
@@ -98,130 +110,83 @@
     color: var(--text-muted);
   }
 
-  .track {
+  .row {
     display: flex;
-    align-items: center;
-    gap: 6px;
-    height: 30px;
+    gap: 5px;
   }
 
-  .cycle {
-    display: flex;
-    align-items: center;
-    gap: 3px;
+  .chip {
     flex: 1;
     min-width: 0;
-  }
-
-  /* the frontier lane is one band + one tick; the band eats the whole width */
-  .track.solo .band {
-    flex: 1;
-  }
-
-  .band {
-    height: 11px;
-    flex: 1;
-    min-width: 0;
-    border-radius: 2px;
-    background: var(--text-muted);
-    transform: scaleX(1);
-    transform-origin: left center;
-    transition: transform 0.16s var(--ease-out);
-  }
-
-  .tick {
-    width: 5px;
-    height: 26px;
-    flex: none;
-    border-radius: 2px;
-    background: var(--accent);
-    transform: scaleY(1);
-    transform-origin: bottom center;
-    opacity: 1;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
     transition:
-      transform 0.24s var(--ease-out),
-      opacity 0.24s var(--ease-out);
+      opacity 0.15s var(--ease-out),
+      background 0.2s var(--ease-out),
+      border-color 0.2s var(--ease-out),
+      color 0.2s var(--ease-out);
   }
 
-  .foot {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    letter-spacing: var(--step);
-    color: var(--text-muted);
-  }
-
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 1.4rem;
-    margin-top: 0.25rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    letter-spacing: var(--step);
-    color: var(--text-muted);
-  }
-
-  .key {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .sw {
-    display: inline-block;
-    border-radius: 1px;
-  }
-
-  .band-sw {
-    width: 14px;
-    height: 8px;
-    background: var(--text-muted);
-  }
-
-  .tick-sw {
-    width: 5px;
-    height: 14px;
-    background: var(--accent);
-  }
-
-  /* Armed = the pre-roll empty state, set on mount only when motion is allowed. Snapping to empty
-     is instant (no transition); play then animates empty -> full and settles at the resting state. */
-  .fig.armed:not(.play) .band,
-  .fig.armed:not(.play) .tick {
-    transition: none;
-  }
-
-  .fig.armed .band {
-    transform: scaleX(0);
-  }
-
-  .fig.armed .tick {
-    transform: scaleY(0);
+  .chip.pending {
     opacity: 0;
   }
 
-  .fig.armed.play .band {
-    transform: scaleX(1);
+  .chip.judged {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+    animation: pop 0.24s var(--ease-out);
   }
 
-  .fig.armed.play .tick {
-    transform: scaleY(1);
-    opacity: 1;
+  @keyframes pop {
+    0% {
+      scale: 0.92;
+    }
+    55% {
+      scale: 1.06;
+    }
+    100% {
+      scale: 1;
+    }
+  }
+
+  .long {
+    position: relative;
+    height: 2rem;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    overflow: hidden;
+  }
+
+  .fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--border-bright);
+  }
+
+  .mark {
+    position: absolute;
+    inset: 0 auto 0 0;
+    display: grid;
+    place-items: center;
+    padding-inline: 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .band {
-      transform: scaleX(1) !important;
-    }
-    .tick {
-      transform: scaleY(1) !important;
-      opacity: 1 !important;
-    }
-    .band,
-    .tick {
-      transition: none !important;
+    .chip {
+      transition: none;
+      animation: none;
     }
   }
 </style>

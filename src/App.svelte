@@ -76,7 +76,7 @@
 
     <FigureCard
       label="fig 01 · latency"
-      caption="a human judges in ~200 ms and proposes nothing; cycle time belongs to the proposer."
+      caption="each solid chip is a judged proposal, at real speed; you judge in ~200 ms and propose nothing, so the pace belongs to the proposer."
     >
       <LatencyFigure />
     </FigureCard>
