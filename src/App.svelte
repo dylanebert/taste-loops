@@ -45,6 +45,10 @@
     </div>
 
     <p>
+      The shape is propose, then verify: <code>attempt</code> proposes a
+      change, <code>reviews</code> judge it.
+    </p>
+    <p>
       The clearest recent example is the
       <a href="https://bun.com/blog/bun-in-rust">bun rust rewrite</a>, which
       relied on three kinds of automated verification:
@@ -76,16 +80,6 @@
       iterate on taste in an agentic workflow. It's just very slow. Slow
       enough to send you back to editing software.
     </p>
-
-    <div class="latency">
-      <LatencyFigure />
-    </div>
-
-    <p>
-      The proposer answers in about a second; a full round, with speech,
-      compile, and render, is still a few seconds, but the proposer is no
-      longer what you wait on.
-    </p>
   </section>
 
   <section class="section">
@@ -103,8 +97,21 @@
       subagent, such as
       <a href="https://www.inceptionlabs.ai/blog/introducing-mercury-2"
         >Mercury 2</a
-      >. The verifier is you. The session may be text or spoken conversation,
-      and can incorporate UI or visualization. Let's look at an example.
+      >. The verifier is you.
+    </p>
+
+    <div class="latency">
+      <LatencyFigure />
+    </div>
+
+    <p>
+      The proposer answers in about a second; a full round, with speech,
+      compile, and render, is still a few seconds, but the proposer is no
+      longer what you wait on.
+    </p>
+    <p>
+      The session may be text or spoken conversation, and can incorporate UI
+      or visualization. Let's look at an example.
     </p>
 
     <VideoDemo />
@@ -224,6 +231,16 @@
 
   .section p:last-child {
     margin-bottom: 0;
+  }
+
+  .section p code {
+    font-family: var(--mono);
+    font-size: 0.82em;
+    color: var(--text-mid);
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
   }
 
   .aside {
