@@ -1,5 +1,4 @@
 <script lang="ts">
-  import FigureCard from "./lib/FigureCard.svelte";
   import AsciiBlock from "./lib/AsciiBlock.svelte";
   import LatencyFigure from "./lib/LatencyFigure.svelte";
   import VideoDemo from "./lib/VideoDemo.svelte";
@@ -78,11 +77,9 @@
       enough to send you back to editing software.
     </p>
 
-    <FigureCard
-      caption="each chip is a judged proposal; the pace belongs to the proposer."
-    >
+    <div class="latency">
       <LatencyFigure />
-    </FigureCard>
+    </div>
 
     <p>
       The proposer answers in about a second; a full round, with speech,
@@ -188,6 +185,10 @@
     font-size: 1.3rem;
     line-height: 1.4;
     color: var(--text-muted);
+  }
+
+  .latency {
+    margin: 2.25rem 0;
   }
 
   .code {
