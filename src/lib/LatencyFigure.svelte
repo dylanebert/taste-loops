@@ -1,16 +1,17 @@
 <script lang="ts">
-  // Adapted from Inception's Mercury parallel-vs-sequential viz, restated for round count: in one
-  // ~9 s loop the fast lane completes a judged proposal every real second (chip appears, the
-  // accent pop is the verdict) while the frontier lane's single proposal is still filling when the
-  // loop restarts. The motion carries the claim; the caption is the only explanation. Loops while
-  // on-screen (operator direction supersedes play-once-then-still for this figure); reduced motion
-  // gets the fully-drawn resting state: fast lane judged, frontier lane partial.
+  // Adapted from Inception's Mercury parallel-vs-sequential viz, restated for round count: the fast
+  // lane completes a judged proposal every beat (chip appears, the accent pop is the verdict) while
+  // the frontier lane's single proposal barely fills before the loop restarts. Timing is
+  // illustrative, not literal; the fast lane must look fast, and seconds are never prescribed. The
+  // motion carries the claim; the caption is the only explanation. Loops while on-screen (operator
+  // direction supersedes play-once-then-still for this figure); reduced motion gets the fully-drawn
+  // resting state: fast lane judged, frontier lane partial.
 
   const chips = [1, 2, 3, 4, 5, 6, 7, 8];
-  const beat = 1000; // ms per fast proposal, the literal claim
+  const beat = 300; // ms per fast proposal, illustrative
   const judgeAt = 0.68; // fraction of the beat when the verdict lands
-  const loop = 9000;
-  const frontierSpan = 45000; // mid 30–60 s
+  const loop = 3600; // full row lands by ~2.6 s, then a brief hold before restart
+  const frontierSpan = 25000; // scaled so the frontier bar is only ~14% filled at loop restart
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -59,7 +60,6 @@
   <div class="lane">
     <div class="head">
       <span class="name">fast proposer</span>
-      <span class="time">~1 s / proposal</span>
     </div>
     <div class="row">
       {#each chips as v, i (v)}
@@ -71,7 +71,6 @@
   <div class="lane">
     <div class="head">
       <span class="name">frontier proposer</span>
-      <span class="time">30–60 s / proposal</span>
     </div>
     <div class="long">
       <span class="fill" style="width:{(fill * 100).toFixed(2)}%"></span>
@@ -104,10 +103,6 @@
 
   .name {
     color: var(--text-dim);
-  }
-
-  .time {
-    color: var(--text-muted);
   }
 
   .row {

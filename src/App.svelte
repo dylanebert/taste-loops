@@ -29,6 +29,10 @@
       It has become easy to generate code. The hard part is knowing whether
       it's the code you want.
     </p>
+    <p class="aside">
+      check out the
+      <a href="https://youtube.com/shorts/vkAt-KS6I_U">fast video version</a>.
+    </p>
   </section>
 
   <section class="section">
@@ -75,8 +79,7 @@
     </p>
 
     <FigureCard
-      label="fig 01 · latency"
-      caption="each solid chip is a judged proposal, at real speed; you judge in ~200 ms and propose nothing, so the pace belongs to the proposer."
+      caption="each chip is a judged proposal; the pace belongs to the proposer."
     >
       <LatencyFigure />
     </FigureCard>
@@ -218,6 +221,11 @@
 
   .section p:last-child {
     margin-bottom: 0;
+  }
+
+  .aside {
+    font-size: 0.9rem;
+    color: var(--text-muted);
   }
 
   .section ol {
