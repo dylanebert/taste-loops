@@ -1,6 +1,7 @@
 <script lang="ts">
   import FigureCard from "./lib/FigureCard.svelte";
   import AsciiBlock from "./lib/AsciiBlock.svelte";
+  import LatencyFigure from "./lib/LatencyFigure.svelte";
   import VideoDemo from "./lib/VideoDemo.svelte";
 
   const loopCode = `while (todos.length) {
@@ -8,17 +9,6 @@
   const feedback = await Promise.all(reviews(result))
   await apply(feedback, result)
 }`;
-
-  const latencyArt = `frontier proposer · 30–60 s per round
-
-  propose ████████████████████████████████  judge ▏
-  propose ████████████████████████████████  judge ▏
-                                you, idle ~99%
-
-fast proposer · ~1 s per round
-
-  propose █ judge ▏ propose █ judge ▏ propose █ judge ▏
-                                you, the bottleneck`;
 </script>
 
 <article class="page">
@@ -88,8 +78,14 @@ fast proposer · ~1 s per round
       label="fig 01 · latency"
       caption="a human judges in ~200 ms and proposes nothing; cycle time belongs to the proposer."
     >
-      <AsciiBlock art={latencyArt} />
+      <LatencyFigure />
     </FigureCard>
+
+    <p>
+      The proposer answers in about a second; a full round, with speech,
+      compile, and render, is still a few seconds, but the proposer is no
+      longer what you wait on.
+    </p>
   </section>
 
   <section class="section">
