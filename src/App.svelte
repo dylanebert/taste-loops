@@ -115,9 +115,7 @@
     <p>
       Here, a Claude Fable 5 agent spawns an interactive shader editing
       session. I iterate on it quickly by voice, talking to Mercury 2. When
-      I'm done, the session folds back into the parent agent's context. I made
-      a <a href="https://youtube.com/shorts/vkAt-KS6I_U">one-minute explainer</a
-      >, if you'd rather watch me talk through it.
+      I'm done, the session folds back into the parent agent's context.
     </p>
   </section>
 
