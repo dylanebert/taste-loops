@@ -184,7 +184,7 @@ fn fs(@location(0) uv: vec2f) -> @location(0) vec4f {
       and closing the tab hands the result back.
     </p>
 
-    <p>Then just ask. Give Claude the artifact and let it spawn the loop:</p>
+    <p>Then ask:</p>
 
     <div class="cmd">
       <code>{shaderPrompt}</code>
@@ -192,16 +192,13 @@ fn fs(@location(0) uv: vec2f) -> @location(0) vec4f {
 
     <p>
       It works on prose too. "start a taste loop on this paragraph" hands you
-      the text to reshape by eye. That one's a placeholder while the loop is
-      chat-only, but it's the same motion.
+      the text to reshape by eye.
     </p>
 
     <p>
-      Two honest limits. A plain chat is where it is now, not where it's going;
-      real workflows are the intent. And the loop isn't closed: no compiler, no
-      automated verifier, no heal step. You're the verifier, which is the point
-      of the piece. The key form is the auth for now, and becomes standard MCP
-      auth once Inception ships OAuth.
+      These are placeholder shapes: a plain chat for now, real workflows the
+      intent. And the loop isn't closed. No compiler, no automated verifier,
+      no heal step. The verifier is you.
     </p>
   </section>
 </article>
