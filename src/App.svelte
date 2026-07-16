@@ -8,6 +8,14 @@
   const feedback = await Promise.all(reviews(result))
   await apply(feedback, result)
 }`;
+
+  const shaderPrompt = `start a taste loop to iterate on this shader:
+
+@fragment
+fn fs(@location(0) uv: vec2f) -> @location(0) vec4f {
+  let c = 0.5 + 0.5 * cos(uv.xyx + vec3f(0.0, 2.0, 4.0));
+  return vec4f(c, 1.0);
+}`;
 </script>
 
 <article class="page">
@@ -148,6 +156,54 @@
       >. I'm excited to see where this leads.
     </p>
   </section>
+
+  <section class="section addendum">
+    <h2>addendum: setup</h2>
+    <p>
+      You can run a taste loop in your own harness.
+      <a href="https://www.npmjs.com/package/tasteloop">tasteloop</a> is an MCP
+      server that gives your agent one tool: spawn a live session over a piece
+      of text, hand it to you, fold the result back. It doesn't know what the
+      text is: a shader, a palette, a paragraph, a config. Your agent writes
+      the artifact and a brief, then calls <code>taste_session</code>.
+    </p>
+
+    <p>Add it to Claude Code:</p>
+
+    <div class="cmd">
+      <code>claude mcp add tasteloop -- npx -y tasteloop</code>
+    </div>
+
+    <p>
+      The first spawn opens a browser and asks for an Inception
+      <a href="https://platform.inceptionlabs.ai/dashboard/api-keys">API key</a
+      >; new accounts get 10M free tokens. Paste it once. It's stored on your
+      machine, never placed in the page. After that the session is a plain
+      chat. The agent's context arrives as the opening message, each
+      instruction you type diffuses a full redraft of the artifact in place,
+      and closing the tab hands the result back.
+    </p>
+
+    <p>Then just ask. Give Claude the artifact and let it spawn the loop:</p>
+
+    <div class="cmd">
+      <code>{shaderPrompt}</code>
+    </div>
+
+    <p>
+      It works on prose too. "start a taste loop on this paragraph" hands you
+      the text to reshape by eye. That one's a placeholder while the loop is
+      chat-only, but it's the same motion.
+    </p>
+
+    <p>
+      Two honest limits. A plain chat is where it is now, not where it's going;
+      real workflows are the intent. And the loop isn't closed: no compiler, no
+      automated verifier, no heal step. You're the verifier, which is the point
+      of the piece. The key form is the auth for now, and becomes standard MCP
+      auth once Inception ships OAuth.
+    </p>
+  </section>
 </article>
 
 <style>
@@ -246,6 +302,29 @@
   .aside {
     font-size: 0.9rem;
     color: var(--text-muted);
+  }
+
+  .addendum {
+    border-top: 1px solid var(--border);
+    padding-top: 3.5rem;
+    margin-bottom: 0;
+  }
+
+  .cmd {
+    margin: 0 0 1.1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow-x: auto;
+  }
+
+  .cmd code {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-mid);
+    white-space: pre;
   }
 
   .section ol {
