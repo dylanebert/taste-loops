@@ -11,13 +11,13 @@
     "shot": "bun run scripts/shot.ts"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^7.1.2",
+    "@sveltejs/vite-plugin-svelte": "^7.3.0",
     "@tsconfig/svelte": "^5.0.8",
-    "@types/node": "^24.13.2",
+    "@types/node": "^24.13.3",
     "@typescript/native": "npm:typescript@7",
-    "svelte": "^5.56.4",
+    "svelte": "^5.56.10",
     "svelte-check": "^4.7.6",
     "typescript": "~6",
-    "vite": "^8.1.1"
+    "vite": "^8.2.2"
   }
 }
