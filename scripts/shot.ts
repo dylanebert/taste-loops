@@ -3,24 +3,22 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 // Self-terminating full-page capture. Build the site, serve `dist`, screenshot desktop + mobile,
-// exit. Never leaves a dev server or browser open. Display-gated: on bare Linux without a display
-// it skips. On WSL the browser lives on the Windows host, so the work dir (dist + the capture
-// spec + its deps) is staged onto Windows TEMP and driven through PowerShell via `playwright
-// test` — direct playwright library use under bun-on-Windows hangs at launch, the runner works.
+// exit. Never leaves a dev server or browser open. Display-gated: the capture runs headed on this
+// seat's session, so a run with no display is refused rather than passed.
 
 const repo = join(import.meta.dir, "..");
-const isWsl =
-  process.platform === "linux" && existsSync("/proc/sys/fs/binfmt_misc/WSLInterop");
 
+/** true if a display this seat can open a headed browser on is reachable. */
 function detectDisplay(): boolean {
-  if (isWsl) return true;
   if (process.platform !== "linux") return true;
   return !!(process.env.DISPLAY || process.env.WAYLAND_DISPLAY);
 }
 
 if (!detectDisplay()) {
-  console.log("shot: no display detected — skipping capture (exit 0)");
-  process.exit(0);
+  console.error(
+    "shot: FAIL — the capture runs headed and found neither DISPLAY nor WAYLAND_DISPLAY",
+  );
+  process.exit(2);
 }
 
 function run(cmd: string[], cwd: string): void {
@@ -67,43 +65,12 @@ function collect(workDir: string): void {
   }
 }
 
-if (isWsl) {
-  const winTemp = new TextDecoder()
-    .decode(
-      Bun.spawnSync(["powershell.exe", "-Command", "Write-Host -NoNewline $env:TEMP"], {
-        stdout: "pipe",
-      }).stdout,
-    )
-    .trim()
-    .replace(/\r/g, "");
-  const workWin = `${winTemp}\\taste-loops-shot`;
-  const workWsl = new TextDecoder()
-    .decode(Bun.spawnSync(["wslpath", workWin], { stdout: "pipe" }).stdout)
-    .trim();
-
-  prepWork(workWsl);
-  console.log("shot: capturing on the Windows host…");
-  const r = Bun.spawnSync(
-    [
-      "powershell.exe",
-      "-Command",
-      `$env:PLAYWRIGHT_BROWSERS_PATH = "$env:LOCALAPPDATA\\ms-playwright"; cd '${workWin}'; bun install --silent; bunx playwright install chromium; bunx playwright test --config playwright.config.ts`,
-    ],
-    { stdout: "inherit", stderr: "inherit", timeout: 480_000 },
-  );
-  if (r.exitCode !== 0) {
-    console.error(`shot: capture failed on the Windows host (exit ${r.exitCode})`);
-    process.exit(1);
-  }
-  collect(workWsl);
-} else {
-  const work = join(tmpdir(), "taste-loops-shot");
-  prepWork(work);
-  run(["bun", "install", "--silent"], work);
-  run(["bunx", "playwright", "install", "chromium"], work);
-  run(["bunx", "playwright", "test", "--config", "playwright.config.ts"], work);
-  collect(work);
-}
+const work = join(tmpdir(), "taste-loops-shot");
+prepWork(work);
+run(["bun", "install", "--silent"], work);
+run(["bunx", "playwright", "install", "chromium"], work);
+run(["bunx", "playwright", "test", "--config", "playwright.config.ts"], work);
+collect(work);
 
 console.log(`shot: wrote ${join(shots, "desktop.png")}`);
 console.log(`shot: wrote ${join(shots, "mobile.png")}`);

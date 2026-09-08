@@ -7,5 +7,7 @@ export default defineConfig({
   workers: 1,
   retries: 0,
   reporter: "list",
-  use: { headless: true },
+  // Headed: a headless Chrome on this seat falls back to a software adapter, so the gate
+  // captures what the seat's own session renders (measured 2026-09-08).
+  use: { headless: false },
 });
